@@ -1,46 +1,93 @@
-
-
-
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100..900&display=swap" rel="stylesheet">
-        <style>
-            body, html {
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 0;
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* White background for the entire screen */
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #FFF;
+            position: relative;
+        }
+        /* Bubble container that fills the entire screen */
+        .bubbles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Place it behind all other elements */
+        }
+        /* Styling each bubble */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            animation: floatRandom 15s linear infinite;
+        }
+        /* Bubble animation to move from random positions around the screen */
+        @keyframes floatRandom {
+            0% {
+                transform: translateY(100vh) scale(0.5);
             }
-            p {
-                font-family: 'Roboto Condensed', sans-serif;
-                display: inline-block;
-                background: #FFF;
-                box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
-                color: #333;
-                padding: 0.7rem 2rem;
-                margin: 0.3rem 0.5rem;
-                font-size: 40px;
-                border-radius: 7px;
-                text-align: center;
+            100% {
+                transform: translateY(-10vh) scale(1);
             }
-            p:hover {
-                cursor: pointer;
-                text-decoration: underline;
-            }
-            a {
-                text-decoration: none;
-                color: #333;
-            }
-        </style>
-    </head>
-    <body>
-        <p>
-            <a rel="noreferrer noopener" href="welcome.html" >WELCOME</a>
-        </p>
-    </body>
+        }
+        /* Centered welcome text styling */
+        p {
+            font-family: 'Roboto Condensed', sans-serif;
+            background: #FFF;
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+            color: #333;
+            padding: 0.7rem 2rem;
+            font-size: 40px;
+            border-radius: 7px;
+            text-align: center;
+            position: absolute; /* Change to absolute */
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust to center perfectly */
+            z-index: 1; /* Above the bubble animation */
+        }
+        p:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for bubbles covering the entire screen -->
+    <div class="bubbles-container"></div>
+    
+    <!-- Centered Welcome Text -->
+    <p>
+        <a href="welcome.html" >_Yrn369</a>
+    </p>
+
+    <!-- Script to generate bubbles across the screen -->
+    <script>
+        const container = document.querySelector('.bubbles-container');
+        for (let i = 0; i < 50; i++) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 60 + 20; // Random size between 20 and 80
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+            bubble.style.top = `${Math.random() * 100}vh`;  // Random vertical position
+            bubble.style.animationDuration = `${Math.random() * 10 + 10}s`; // Random animation duration
+            container.appendChild(bubble);
+        }
+    </script>
+</body>
 </html>
